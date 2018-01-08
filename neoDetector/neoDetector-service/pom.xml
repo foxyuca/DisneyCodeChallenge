@@ -7,8 +7,9 @@
     <artifactId>neoDetector</artifactId>
     <version>1.0-SNAPSHOT</version>
   </parent>
-  
+    <artifactId>neoDetector-service</artifactId>
   <name>neoDetector-service</name>
+    <packaging>jar</packaging>
   <url>http://maven.apache.org</url>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -57,5 +58,5 @@
     </dependency>
 
   </dependencies>
-	<artifactId>neoDetector-service</artifactId>
+	
 </project>
