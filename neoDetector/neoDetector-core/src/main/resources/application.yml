@@ -1,0 +1,11 @@
+spring:
+  profiles.active: development
+
+---
+
+spring:
+  profiles: development
+  
+feign:
+  neo:
+    url: https://api.nasa.gov

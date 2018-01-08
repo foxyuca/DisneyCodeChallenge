@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.neo.detector</groupId>
+	<artifactId>neoDetector</artifactId>
+	<version>1.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<name>neoDetector</name>
+	<url>http://www.neoDetector.com</url>
+
+	<modules>
+		<module>neoDetector-core</module>
+		<module>neoDetector-service</module>
+    </modules>
+
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>1.5.7.RELEASE</version>
+		<relativePath/>
+	</parent>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<artvu-core.version>1.0-SNAPSHOT</artvu-core.version>
+		<junit.version>4.12</junit.version>
+		<joda-time.version>2.9.9</joda-time.version>
+		<jacksonDatabind.version>2.8.8</jacksonDatabind.version>
+		<jacksonModuleJaxbAnnotations.version>2.8.9</jacksonModuleJaxbAnnotations.version>
+		<mavenCompilerPlugin.version>3.5.1</mavenCompilerPlugin.version>
+		<mavenDependencyPlugin.version>2.10</mavenDependencyPlugin.version>
+		<mavenJarPlugin.version>3.0.0</mavenJarPlugin.version>
+		<mockito.all.version>1.10.19</mockito.all.version>
+		<powermock.junit4.version>1.7.0</powermock.junit4.version>
+		<powermock.mockito.version>1.7.0</powermock.mockito.version>
+		<springfox-swagger.version>2.6.1</springfox-swagger.version>
+		<commons-io.version>1.3.2</commons-io.version>
+		<nekohtml.version>1.9.22</nekohtml.version>
+	</properties>
+
+	<build>
+
+		<defaultGoal>package</defaultGoal>
+
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+					<compilerArgs>
+						<compilerArg>-Xlint:all</compilerArg>
+						<compilerArg>-Xdoclint:all/protected</compilerArg>
+						<compilerArg>-g</compilerArg>
+					</compilerArgs>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>copy-dependencies</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.directory}/lib</outputDirectory>
+							<overWriteReleases>false</overWriteReleases>
+							<overWriteSnapshots>false</overWriteSnapshots>
+							<overWriteIfNewer>true</overWriteIfNewer>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <configuration>
+          <archive>
+            <manifest>
+              <mainClass>com.neo.detector.NeoServiceApplication</mainClass>
+              <!-- custom classpath layout required due to bugs in Maven -->
+              <classpathLayoutType>custom</classpathLayoutType>
+              <customClasspathLayout>lib/$${artifact.artifactId}-$${artifact.baseVersion}$${dashClassifier?}.$${artifact.extension}</customClasspathLayout>
+              <addClasspath>true</addClasspath>
+              <useUniqueVersions>false</useUniqueVersions>
+            </manifest>
+          </archive>
+        </configuration>
+      </plugin>
+		</plugins>
+	</build>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>joda-time</groupId>
+			<artifactId>joda-time</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-all</artifactId>
+			<version>${mockito.all.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.powermock</groupId>
+			<artifactId>powermock-module-junit4</artifactId>
+			<version>${powermock.junit4.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.powermock</groupId>
+			<artifactId>powermock-api-mockito</artifactId>
+			<version>${powermock.mockito.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>${commons-io.version}</version>
+		</dependency>
+		<!-- swagger -->
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger2</artifactId>
+			<version>${springfox-swagger.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger-ui</artifactId>
+			<version>${springfox-swagger.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>net.sourceforge.nekohtml</groupId>
+			<artifactId>nekohtml</artifactId>
+			<version>${nekohtml.version}</version>
+		</dependency>
+	</dependencies>
+
+</project>
